@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffe4ec;
+      font-family: 'Baloo 2', cursive;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      cursor: url('https://cur.cursors-4u.net/cursors/cur-13/cur1164.cur'), auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .password-box {
+      background: #fff0f6;
+      border: 2px solid #ffb6c1;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(255, 182, 193, 0.4);
+      z-index: 10;
+      position: relative;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      border: 1px solid #ffc0cb;
+      border-radius: 10px;
+      width: 200px;
+      font-size: 1em;
+      background-color: #fffafd;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #ffb6c1;
+      border: none;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #fff;
+      transition: background-color 0.3s ease;
+      font-family: 'Baloo 2', cursive;
+    }
+
+    button:hover {
+      background-color: #ff69b4;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .fade-in {
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Glitter sparkles */
+    .sparkle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle, #fff6ff, #ffb6c1);
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: sparkleAnim 2s infinite ease-in-out;
+      pointer-events: none;
+      filter: drop-shadow(0 0 3px #ffc0cb);
+    }
+
+    @keyframes sparkleAnim {
+      0%, 100% { opacity: 0.8; transform: scale(1) rotate(0deg);}
+      50% { opacity: 0.2; transform: scale(1.4) rotate(180deg);}
+    }
+
+    /* Fading hearts */
+    .heart {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: #ff69b4;
+      clip-path: polygon(
+        50% 0%,
+        61% 10%,
+        70% 20%,
+        75% 30%,
+        75% 40%,
+        70% 50%,
+        60% 60%,
+        50% 70%,
+        40% 60%,
+        30% 50%,
+        25% 40%,
+        25% 30%,
+        30% 20%,
+        39% 10%
+      );
+      opacity: 0;
+      animation: heartFade 5s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes heartFade {
+      0% { opacity: 0; transform: translateY(0) scale(0.5); }
+      10% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-100px) scale(1.5); }
+    }
+  </style>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init('68Sux5IVQhaEl4mTL');
+    })();
+  </script>
+</head>
+<body>
+  <div class="password-box" id="password-box">
+    <h2>Enter Password</h2>
+    <input type="password" id="password" placeholder="Enter the magic word" />
+    <br />
+    <button onclick="checkPassword()">Submit</button>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const pass = document.getElementById('password').value;
+      if (pass === 'ilikeyou') {
+        showComplaintForm();
+      } else {
+        alert('Wrong password! Try again 💔');
+      }
+    }
+
+    function showComplaintForm() {
+      document.body.innerHTML = `
+        <div class="fade-in" style="text-align: center; padding: 50px; color: #d6336c; font-family: 'Baloo 2', cursive; position: relative; z-index: 10;">
+          <h1 style="font-size: 2.5em; color: #ff69b4;">💌 Relationship Complaint Center 💌</h1>
+          <p style="font-size: 1.2em; color: #db7093;">
+            If you have any complaints with Beenayak or have any suggestions for him, please feel free to include them below
+          </p>
+          <div id="form-section">
+            <textarea id="complaint" rows="8" cols="50" placeholder="Type your complaint here..." style="margin-top: 20px; padding: 10px; border-radius: 12px; border: 2px solid #ffb6c1; background-color: #fff0f6; font-size: 1em; font-family: 'Baloo 2', cursive;"></textarea>
+            <br />
+            <button onclick="submitComplaint()" style="margin-top: 15px; background-color: #ffb6c1; color: white; border: none; border-radius: 12px; padding: 10px 20px; cursor: pointer; font-weight: bold; font-family: 'Baloo 2', cursive;">Submit 💖</button>
+          </div>
+          <div id="thankyou-message" class="hidden fade-in" style="font-size: 1.3em; color: #cc3366; margin-top: 30px;">
+            💗 Thank you for your honesty! Your complaint has been noted. 💗<br/>
+            <button onclick="resetForm()" style="margin-top: 20px; background-color: #f88aa3; color: white; border: none; border-radius: 12px; padding: 10px 20px; cursor: pointer; font-weight: bold; font-family: 'Baloo 2', cursive;">Submit Another 💌</button>
+          </div>
+        </div>
+      `;
+
+      createSparkles();
+      createHearts();
+    }
+
+    function submitComplaint() {
+      const complaint = document.getElementById('complaint').value.trim();
+      if (complaint !== "") {
+        sendComplaintEmail(complaint);
+        document.getElementById('form-section').classList.add('hidden');
+        document.getElementById('thankyou-message').classList.remove('hidden');
+      } else {
+        alert("Please write something before submitting 💬");
+      }
+    }
+
+    function resetForm() {
+      document.getElementById('form-section').classList.remove('hidden');
+      document.getElementById('thankyou-message').classList.add('hidden');
+      document.getElementById('complaint').value = "";
+    }
+
+    function sendComplaintEmail(complaintText) {
+      const now = new Date();
+      const formattedDate = now.toLocaleString();
+
+      const templateParams = {
+        to_email: 'chessy283@gmail.com',
+        complaint: complaintText,
+        timestamp: formattedDate
+      };
+
+      emailjs.send('service_4r4eim8', 'template_0fa2ysa', templateParams)
+        .then(function(response) {
+          console.log('Email sent!', response.status, response.text);
+        }, function(error) {
+          console.error('Email failed:', error);
+        });
+    }
+
+    // Glitter sparkle generation
+    function createSparkles() {
+      for (let i = 0; i < 15; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkle.style.top = Math.random() * window.innerHeight + 'px';
+        sparkle.style.left = Math.random() * window.innerWidth + 'px';
+        sparkle.style.animationDelay = (Math.random() * 2) + 's';
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => sparkle.remove(), 8000);
+      }
+      // Repeat every 8 seconds
+      setTimeout(createSparkles, 8000);
+    }
+
+    // Fading hearts generation
+    function createHearts() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      document.body.appendChild(heart);
+
+      // Remove heart after animation ends (5s)
+      setTimeout(() => heart.remove(), 5000);
+
+      // Repeat every 700ms
+      setTimeout(createHearts, 700);
+    }
+  </script>
+</body>
+</html>
